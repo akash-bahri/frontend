@@ -1,38 +1,147 @@
-.App {
-  text-align: center;
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Body Styles */
+body {
+    background-color: #f4f4f9;
+    color: #333;
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Heading */
+h1 {
+    font-size: 3rem;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* Input Field */
+input {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    width: 250px;
+    max-width: 100%;
 }
 
-.App-link {
-  color: #61dafb;
+/* Button */
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+button:disabled {
+    background-color: #888;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Error Message */
+p {
+    color: red;
+    font-size: 1rem;
+    margin-top: 20px;
+}
+
+/* Movie Recommendations Container */
+.movie-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns in each row */
+    gap: 30px;  /* Space between movie cards */
+    margin-top: 20px;
+    width: 100%; /* Full width of container */
+    max-width: 1200px; /* Max width to prevent stretching */
+    padding: 20px;
+}
+
+/* Movie Card */
+.movie-card {
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+    width: 250px;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #ddd; /* Adding border */
+}
+
+.movie-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Hover effect */
+}
+
+/* Movie Title */
+.movie-card h2 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+/* Movie Genres */
+.movie-card p {
+    font-size: 0.9rem;
+    color: #777;
+    margin-bottom: 10px;
+    text-transform: capitalize;
+}
+
+/* Movie Poster */
+.movie-card img {
+    width: 100%;
+    border-radius: 5px;
+    height: 180px;
+    object-fit: cover; /* Ensure images fit nicely */
+}
+
+/* No Poster Available Text */
+.movie-card .no-poster {
+    font-size: 1rem;
+    color: #888;
+    margin-top: 10px;
+}
+
+/* Responsive Design for Tablet */
+@media (max-width: 768px) {
+    .movie-container {
+        grid-template-columns: 1fr 1fr; /* 2 columns on small tablets */
+    }
+
+    .movie-card {
+        width: 100%;
+    }
+}
+
+/* Responsive Design for Mobile */
+@media (max-width: 480px) {
+    .movie-container {
+        grid-template-columns: 1fr; /* 1 column on mobile */
+    }
 }
