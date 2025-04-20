@@ -32,6 +32,28 @@ const App = () => {
         }
     };
 
+    const getClusterRecommendations = async () => {
+        setLoading(true);
+        setError('');
+        try {
+            const response = await axios.get(`http://localhost:5000/api/cluster_recommendations/${userId}`);
+            const recommendedMovies = response.data;
+
+            for (let movie of recommendedMovies) {
+                const posterUrl = await getPosterUrl(movie.movie_id);
+                movie.poster_url = posterUrl;
+            }
+
+            setRecommendations(recommendedMovies);
+        } catch (error) {
+            console.error('Error fetching cluster recommendations:', error);
+            setError('Failed to fetch cluster-based recommendations.');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+
     const getPosterUrl = async (movieId) => {
         try {
             const response = await axios.get(`http://localhost:5000/api/movie/${movieId}/poster`);
@@ -51,9 +73,16 @@ const App = () => {
                 value={userId}
                 onChange={(e) => setUserId(e.target.value)}
             />
-            <button onClick={getRecommendations} disabled={loading}>
-                {loading ? 'Loading...' : 'Get Recommendations'}
-            </button>
+            <div style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
+    <button onClick={getRecommendations} disabled={loading}>
+        {loading ? 'Loading...' : 'Get Recommendations'}
+    </button>
+    <button onClick={getClusterRecommendations} disabled={loading}>
+        {loading ? 'Loading...' : 'Cluster Recommendations'}
+    </button>
+</div>
+
+
 
             {error && <p>{error}</p>}
 
@@ -62,7 +91,7 @@ const App = () => {
                     recommendations.map((movie) => (
                         <div className="movie-card" key={movie.movie_id}>
                             <h2>{movie.title}</h2>
-                            <p>Predicted Rating: {movie.predicted_rating}</p>
+                            <p>Predicted Rating: <strong>{movie.predicted_rating.toFixed(2)}</strong></p>
                             <p>Genres: {Array.isArray(movie.genres) ? movie.genres.join(', ') : 'No genres available'}</p>
                             {movie.poster_url ? (
                                 <img
